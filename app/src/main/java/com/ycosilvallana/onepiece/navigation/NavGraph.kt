@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ycosilvallana.onepiece.presentation.screens.splash.SplashScreen
+import com.ycosilvallana.onepiece.presentation.screens.welcome.WelcomeScreen
 import com.ycosilvallana.onepiece.util.Constants.DETAILS_ARGUMENT_KEY
 
 @Composable
@@ -20,7 +21,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.Welcome.route) {
-            // TODO
+            WelcomeScreen(navController = navController)
         }
 
         composable(route = Screen.Home.route) {
