@@ -28,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -65,6 +66,7 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
     // Paging 3.0
+    implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
 
     // Kotlinx Serialization
