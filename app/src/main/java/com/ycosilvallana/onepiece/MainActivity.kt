@@ -15,7 +15,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ycosilvallana.onepiece.navigation.SetupNavGraph
 import com.ycosilvallana.onepiece.ui.theme.OnepieceandroidTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController
