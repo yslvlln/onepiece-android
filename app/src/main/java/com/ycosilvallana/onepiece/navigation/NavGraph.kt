@@ -14,7 +14,7 @@ import com.ycosilvallana.onepiece.util.Constants.DETAILS_ARGUMENT_KEY
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route
+        startDestination = Screen.Welcome.route
     ) {
         composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)

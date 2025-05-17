@@ -24,3 +24,11 @@ val ColorScheme.titleColor
 val ColorScheme.descriptionColor
     @Composable
     get() = if (isSystemInDarkTheme()) Color.White else Color.Black.copy(alpha = 0.5f)
+
+val ColorScheme.activeIndicator
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color.White else Color.DarkGray
+
+val ColorScheme.inactiveIndicator
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color.LightGray else Color.LightGray
