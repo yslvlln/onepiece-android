@@ -8,5 +8,8 @@ object Constants {
     const val CHARACTER_DATABASE_TABLE = "character_table"
     const val CHARACTER_PAGE_DATABASE_TABLE = "character_page_table"
 
+    const val ONE_PIECE_PREFERENCE = "onepiece_preference"
+    const val ONBOARDING_COMPLETED_KEY = "onboarding_completed"
+
     const val ONBOARDING_PAGE_COUNT = 3
 }
