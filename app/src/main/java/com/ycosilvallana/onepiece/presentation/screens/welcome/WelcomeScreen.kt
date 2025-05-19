@@ -38,9 +38,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ycosilvallana.onepiece.R
 import com.ycosilvallana.onepiece.domain.model.OnboardingPage
+import com.ycosilvallana.onepiece.navigation.Screen
 import com.ycosilvallana.onepiece.ui.theme.EXTRA_LARGE_PADDING
 import com.ycosilvallana.onepiece.ui.theme.LARGE_PADDING
 import com.ycosilvallana.onepiece.ui.theme.SMALL_PADDING
@@ -52,7 +54,10 @@ import com.ycosilvallana.onepiece.ui.theme.welcomeScreenBackgroundColor
 import com.ycosilvallana.onepiece.util.Constants.ONBOARDING_PAGE_COUNT
 
 @Composable
-fun WelcomeScreen(navController: NavController) {
+fun WelcomeScreen(
+    navController: NavController,
+    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
     val pagerState = rememberPagerState { ONBOARDING_PAGE_COUNT }
 
     val pages = listOf(
@@ -87,7 +92,11 @@ fun WelcomeScreen(navController: NavController) {
             modifier = Modifier
                 .weight(1f),
             pagerState = pagerState
-        ) { }
+        ) {
+            navController.popBackStack()
+            navController.navigate(Screen.Home.route)
+            welcomeViewModel.saveOnboardingStatus(completed = true)
+        }
     }
 }
 
