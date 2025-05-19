@@ -32,3 +32,11 @@ val ColorScheme.activeIndicator
 val ColorScheme.inactiveIndicator
     @Composable
     get() = if (isSystemInDarkTheme()) Color.LightGray else Color.LightGray
+
+val ColorScheme.topAppBarContentColor
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color.White else Color.Black
+
+val ColorScheme.topAppBarBackgroundColor
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color.Black else Color.LightGray
