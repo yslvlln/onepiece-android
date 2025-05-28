@@ -2,6 +2,9 @@ package com.ycosilvallana.onepiece.util
 
 object Constants {
 
+    // TODO update this with your local IP
+    const val BASE_URL = "http://192.168.5.124:8080"
+
     const val DETAILS_ARGUMENT_KEY = "characterId"
 
     const val ONE_PIECE_DATABASE = "onepiece_database"
