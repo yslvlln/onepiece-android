@@ -2,6 +2,7 @@ package com.ycosilvallana.onepiece.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.ycosilvallana.onepiece.data.local.OnePieceDatabase
 import com.ycosilvallana.onepiece.util.Constants.ONE_PIECE_DATABASE
 import dagger.Module
@@ -19,10 +20,11 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(
-        context,
-        OnePieceDatabase::class.java,
-        ONE_PIECE_DATABASE
-    ).build()
-
+    ): RoomDatabase {
+        return Room.databaseBuilder(
+            context,
+            OnePieceDatabase::class.java,
+            ONE_PIECE_DATABASE
+        ).build()
+    }
 }
