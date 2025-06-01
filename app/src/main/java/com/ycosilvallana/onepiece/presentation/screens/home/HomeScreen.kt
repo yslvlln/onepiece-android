@@ -1,17 +1,17 @@
 package com.ycosilvallana.onepiece.presentation.screens.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
+import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.ycosilvallana.onepiece.presentation.components.RatingWidget
-import com.ycosilvallana.onepiece.ui.theme.LARGE_PADDING
+import com.ycosilvallana.onepiece.presentation.common.ListContent
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
+    navController: NavHostController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
 
@@ -19,16 +19,14 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            HomeTopBar(
-                onSearchClicked = {}
+            HomeTopBar(onSearchClicked = {})
+        },
+        content = {
+            ListContent(
+                characters = allCharacters,
+                navController = navController
             )
         }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier.padding(paddingValues)
-        ) {
-
-        }
-    }
+    )
 
 }
