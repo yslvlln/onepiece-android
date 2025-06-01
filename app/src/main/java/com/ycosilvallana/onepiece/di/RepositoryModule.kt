@@ -2,9 +2,10 @@ package com.ycosilvallana.onepiece.di
 
 import android.content.Context
 import com.ycosilvallana.onepiece.data.repository.DataStoreOperationsImpl
-import com.ycosilvallana.onepiece.data.repository.UserRepository
+import com.ycosilvallana.onepiece.data.repository.Repository
 import com.ycosilvallana.onepiece.domain.repository.DataStoreOperations
 import com.ycosilvallana.onepiece.domain.use_cases.UseCases
+import com.ycosilvallana.onepiece.domain.use_cases.get_all_characters.GetAllCharactersUseCase
 import com.ycosilvallana.onepiece.domain.use_cases.read_onboarding.ReadOnboardingUseCase
 import com.ycosilvallana.onepiece.domain.use_cases.save_onboarding.SaveOnboardingUseCase
 import dagger.Module
@@ -28,10 +29,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUseCases(userRepository: UserRepository): UseCases {
+    fun provideUseCases(repository: Repository): UseCases {
         return UseCases(
-            saveOnboardingUseCases = SaveOnboardingUseCase(userRepository = userRepository),
-            readOnboardingUseCase = ReadOnboardingUseCase(userRepository = userRepository)
+            saveOnboardingUseCases = SaveOnboardingUseCase(repository = repository),
+            readOnboardingUseCase = ReadOnboardingUseCase(repository = repository),
+            getAllCharactersUseCase = GetAllCharactersUseCase(repository = repository)
         )
     }
 

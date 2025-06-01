@@ -7,7 +7,7 @@ import com.ycosilvallana.onepiece.domain.repository.RemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(
+class Repository @Inject constructor(
     private val remote: RemoteDataSource,
     private val dataStore: DataStoreOperations
 ) {

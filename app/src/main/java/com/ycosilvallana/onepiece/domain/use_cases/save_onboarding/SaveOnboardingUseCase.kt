@@ -1,12 +1,12 @@
 package com.ycosilvallana.onepiece.domain.use_cases.save_onboarding
 
-import com.ycosilvallana.onepiece.data.repository.UserRepository
+import com.ycosilvallana.onepiece.data.repository.Repository
 
 class SaveOnboardingUseCase(
-    private val userRepository: UserRepository
+    private val repository: Repository
 ) {
 
     suspend operator fun invoke(completed: Boolean) {
-        userRepository.saveOnboardingStatus(completed = completed)
+        repository.saveOnboardingStatus(completed = completed)
     }
 }
