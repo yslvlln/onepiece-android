@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.ycosilvallana.onepiece.presentation.components.RatingWidget
+import com.ycosilvallana.onepiece.ui.theme.LARGE_PADDING
 
 @Composable
 fun HomeScreen(
@@ -24,7 +26,9 @@ fun HomeScreen(
     ) { paddingValues ->
         Box(
             modifier = Modifier.padding(paddingValues)
-        )
+        ) {
+
+        }
     }
 
 }
