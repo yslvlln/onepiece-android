@@ -15,4 +15,6 @@ object Constants {
     const val ONBOARDING_COMPLETED_KEY = "onboarding_completed"
 
     const val ONBOARDING_PAGE_COUNT = 3
+
+    const val ITEMS_PER_PAGE = 3
 }

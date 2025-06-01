@@ -1,7 +1,11 @@
 package com.ycosilvallana.onepiece.di
 
+import androidx.paging.ExperimentalPagingApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.ycosilvallana.onepiece.data.local.OnePieceDatabase
 import com.ycosilvallana.onepiece.data.remote.OnePieceApi
+import com.ycosilvallana.onepiece.data.repository.RemoteDataSourceImpl
+import com.ycosilvallana.onepiece.domain.repository.RemoteDataSource
 import com.ycosilvallana.onepiece.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -15,6 +19,7 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+@ExperimentalPagingApi
 @ExperimentalSerializationApi
 @Module
 @InstallIn(SingletonComponent::class)
@@ -44,5 +49,17 @@ object NetworkModule {
     @Singleton
     fun provideOnePieceApi(retrofit: Retrofit): OnePieceApi {
         return retrofit.create(OnePieceApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(
+        onePieceApi: OnePieceApi,
+        onePieceDatabase: OnePieceDatabase
+    ): RemoteDataSource {
+        return RemoteDataSourceImpl(
+            onePieceApi = onePieceApi,
+            onePieceDatabase = onePieceDatabase
+        )
     }
 }
