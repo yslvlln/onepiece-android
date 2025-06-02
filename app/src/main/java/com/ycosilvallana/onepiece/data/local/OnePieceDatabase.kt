@@ -5,11 +5,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ycosilvallana.onepiece.data.local.dao.CharacterDao
 import com.ycosilvallana.onepiece.data.local.dao.CharacterRemoteKeysDao
-import com.ycosilvallana.onepiece.domain.model.Character
+import com.ycosilvallana.onepiece.domain.model.CharacterEntity
 import com.ycosilvallana.onepiece.domain.model.CharacterRemoteKeys
 
 @Database(
-    entities = [Character::class, CharacterRemoteKeys::class],
+    entities = [CharacterEntity::class, CharacterRemoteKeys::class],
     version = 1
 )
 @TypeConverters(DatabaseConverter::class)

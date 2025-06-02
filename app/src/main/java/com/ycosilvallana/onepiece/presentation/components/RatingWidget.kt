@@ -32,7 +32,7 @@ import com.ycosilvallana.onepiece.ui.theme.StarColor
 
 @Composable
 fun RatingWidget(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     rating: Double,
     scaleFactor: Float = 3F,
     spaceBetween: Dp = EXTRA_SMALL_PADDING

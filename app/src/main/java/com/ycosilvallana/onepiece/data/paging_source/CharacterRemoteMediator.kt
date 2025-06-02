@@ -1,14 +1,15 @@
 package com.ycosilvallana.onepiece.data.paging_source
 
-import androidx.compose.runtime.key
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.paging.RemoteMediator.MediatorResult
 import androidx.room.withTransaction
 import com.ycosilvallana.onepiece.data.local.OnePieceDatabase
 import com.ycosilvallana.onepiece.data.remote.OnePieceApi
-import com.ycosilvallana.onepiece.domain.model.Character
+import com.ycosilvallana.onepiece.domain.model.CharacterDTO.Companion.toEntity
+import com.ycosilvallana.onepiece.domain.model.CharacterEntity
 import com.ycosilvallana.onepiece.domain.model.CharacterRemoteKeys
 import javax.inject.Inject
 
@@ -16,12 +17,12 @@ import javax.inject.Inject
 class CharacterRemoteMediator @Inject constructor(
     private val onePieceApi: OnePieceApi,
     private val onePieceDatabase: OnePieceDatabase
-) : RemoteMediator<Int, Character>() {
+) : RemoteMediator<Int, CharacterEntity>() {
 
     private val characterDao = onePieceDatabase.characterDao()
     private val characterRemoteKeysDao = onePieceDatabase.characterKeysDao()
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, Character>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, CharacterEntity>): MediatorResult {
         return try {
             val page = when (loadType) {
                 LoadType.REFRESH -> {
@@ -32,18 +33,14 @@ class CharacterRemoteMediator @Inject constructor(
                 LoadType.PREPEND -> {
                     val remoteKeys = getRemoteKeyForFirstItem(state)
                     val prevPage = remoteKeys?.currentPage?.minus(1)
-                        ?: return MediatorResult.Success(
-                            endOfPaginationReached = remoteKeys != null
-                        )
+                        ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                     prevPage
                 }
 
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
                     val nextPage = remoteKeys?.currentPage?.plus(1)
-                        ?: return MediatorResult.Success(
-                            endOfPaginationReached = remoteKeys != null
-                        )
+                        ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                     nextPage
                 }
             }
@@ -66,17 +63,17 @@ class CharacterRemoteMediator @Inject constructor(
                         )
                     }
                     characterRemoteKeysDao.addAllRemoteKeys(keys)
-                    characterDao.addCharacters(characters = response.data)
+                    characterDao.addCharacters(characters = response.data.map { it.toEntity() })
                 }
             }
-            MediatorResult.Success(endOfPaginationReached = response.meta.currentPage == response.meta.total)
+            MediatorResult.Success(endOfPaginationReached = response.meta.currentPage >= (response.meta.lastPage ?: 0))
         } catch (e: Exception) {
             MediatorResult.Error(e)
         }
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, Character>
+        state: PagingState<Int, CharacterEntity>
     ): CharacterRemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { characterId ->
@@ -86,7 +83,7 @@ class CharacterRemoteMediator @Inject constructor(
     }
 
     private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, Character>
+        state: PagingState<Int, CharacterEntity>
     ): CharacterRemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }
             ?.data
@@ -97,7 +94,7 @@ class CharacterRemoteMediator @Inject constructor(
     }
 
     private suspend fun getRemoteKeyForLastItem(
-        state: PagingState<Int, Character>
+        state: PagingState<Int, CharacterEntity>
     ): CharacterRemoteKeys? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }
             ?.data

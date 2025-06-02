@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import com.ycosilvallana.onepiece.data.local.OnePieceDatabase
 import com.ycosilvallana.onepiece.data.paging_source.CharacterRemoteMediator
 import com.ycosilvallana.onepiece.data.remote.OnePieceApi
-import com.ycosilvallana.onepiece.domain.model.Character
+import com.ycosilvallana.onepiece.domain.model.CharacterEntity
 import com.ycosilvallana.onepiece.domain.repository.RemoteDataSource
 import com.ycosilvallana.onepiece.util.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,7 @@ class RemoteDataSourceImpl(
 
     private val characterDao = onePieceDatabase.characterDao()
 
-    override fun getAllHeroes(): Flow<PagingData<Character>> {
+    override fun getAllHeroes(): Flow<PagingData<CharacterEntity>> {
         val pagingSourceFactory = { characterDao.getAllCharacters() }
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
@@ -32,7 +32,7 @@ class RemoteDataSourceImpl(
         ).flow
     }
 
-    override fun searchHeroes(): Flow<PagingData<Character>> {
+    override fun searchHeroes(): Flow<PagingData<CharacterEntity>> {
         TODO("Not yet implemented")
     }
 }

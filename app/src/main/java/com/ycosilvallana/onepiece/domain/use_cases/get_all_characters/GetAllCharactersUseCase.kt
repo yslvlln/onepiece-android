@@ -2,14 +2,14 @@ package com.ycosilvallana.onepiece.domain.use_cases.get_all_characters
 
 import androidx.paging.PagingData
 import com.ycosilvallana.onepiece.data.repository.Repository
-import com.ycosilvallana.onepiece.domain.model.Character
+import com.ycosilvallana.onepiece.domain.model.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 class GetAllCharactersUseCase(
     private val repository: Repository
 ) {
 
-    operator fun invoke(): Flow<PagingData<Character>> {
+    operator fun invoke(): Flow<PagingData<CharacterEntity>> {
         return repository.getAllCharacters()
     }
 }
